@@ -1,0 +1,13 @@
+
+fn gay_bitch(bob: str) {
+    let a = 10;
+    let b = 14;
+    a + b
+}
+
+fn main() {
+    1 + 1;
+    let res = gay_bitch("lol");
+    println(res);
+    println("hi")
+}
