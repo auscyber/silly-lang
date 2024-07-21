@@ -119,12 +119,30 @@ fn main() {
     }
     let stdin = std::io::stdin();
     let mut stdout = std::io::stdout();
+    let mut state = State {
+        vars: std::collections::HashMap::new(),
+    };
     loop {
         print!("> ");
         stdout.flush().unwrap();
         let mut buf = String::new();
         stdin.read_line(&mut buf).unwrap();
-        let expr = parser::silly::ExprParser::new().parse(&buf);
-        println!("{:?}", expr);
+        let statement = parser::silly::ReplParser::new().parse(&buf);
+        match statement {
+            Ok(statement) => {
+                println!("{:?}", statement);
+                let res = evaluate(&statement, &mut state);
+
+                match res {
+                    Expr::Noop => {}
+                    Expr::Number(n) => println!("{}", n),
+                    Expr::String(s) => println!("{}", s),
+                    _ => panic!("Invalid statement"),
+                }
+            }
+            Err(e) => {
+                println!("{:?}", e);
+            }
+        };
     }
 }

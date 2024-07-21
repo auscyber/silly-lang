@@ -97,3 +97,9 @@ Call: Box<Expr> = {
 Let: Box<Expr> = {
     "let" <Ident> "=" <Expr> ";" => Box::new(Expr::Let(  <>)) 
 };
+
+
+pub Repl: Box<Expr> = {
+    <Statement> => <>.clone(),
+    <Expr>
+};
